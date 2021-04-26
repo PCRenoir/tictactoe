@@ -51,7 +51,7 @@ def clicjeu_h_vs_pc(event):
     choix = [0,1,2]
     X = event.x // 100
     Y = event.y // 100
-    if not(game.victoire(game.player % 2)) and game.player < 9:
+    if not(game.victoire(game.player % 2) or game.victoire((game.player + 1) % 2)) and game.player < 9:
         couleur = color()
         if game.plateau[Y][X] != '.' :
             return None
@@ -61,7 +61,7 @@ def clicjeu_h_vs_pc(event):
             label = tk.Label(fen, text = victoire)
             label.grid(row = 0, column = 0)
         game.player += 1
-        if game.player < 9 and game.victoire((game.player - 1) % 2) == False:
+        if game.player < 9 and game.victoire((game.player) % 2) == False:
             X = rd.choice(choix)  #X et Y au hasard
             Y = rd.choice(choix)
             couleur = color()
