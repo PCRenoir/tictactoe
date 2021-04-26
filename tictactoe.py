@@ -53,8 +53,8 @@ def clicjeu_h_vs_pc(event):
     Y = event.y // 100
     if not(game.victoire(game.player % 2)) and game.player < 9:
         couleur = color()
-        while game.plateau[Y][X] != '.' :
-            clicjeu_h_vs_pc
+        if game.plateau[Y][X] != '.' :
+            return None
         affiche_cercle(X,Y,couleur)
         if game.victoire(game.player % 2):
             victoire = 'Joueur humain gagne !'
