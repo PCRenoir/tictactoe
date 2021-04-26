@@ -31,10 +31,10 @@ class Jeu:
 
 
 def affiche_grille():
-    dessin.create_line(100, 0, 100, 320, fill= 'black', width = 2)
-    dessin.create_line(200, 0, 200, 320, fill= 'black', width = 2)
-    dessin.create_line(0, 100, 320, 100, fill= 'black', width = 2)
-    dessin.create_line(0, 200, 320, 200, fill= 'black', width = 2)
+    dessin.create_line(100, 0, 100, 300, fill= 'black', width = 2)
+    dessin.create_line(200, 0, 200, 300, fill= 'black', width = 2)
+    dessin.create_line(0, 100, 300, 100, fill= 'black', width = 2)
+    dessin.create_line(0, 200, 300, 200, fill= 'black', width = 2)
 
 
 def clicjeu(event):
@@ -48,7 +48,7 @@ def clicjeu(event):
     if not(game.victoire(game.player % 2)) and game.player < 9:
         affiche_cercle(X,Y,couleur)
         if game.victoire(game.player % 2):
-            victoire = 'Joueur '+str((game.player % 2) + 1)+' gagne !'
+            victoire = 'Joueur ' + str((game.player % 2) + 1) + ' gagne !'
             label = tk.Label(fen, text = victoire)
             label.grid(row = 0, column = 0)
         else :
@@ -60,47 +60,21 @@ def clicjeu(event):
 def cercle(x,y,color):
     dessin.create_oval(x,y,x+80,y+80,width = 2, outline = color)
 
-def affiche_cercle(X,Y,couleur):
-    if 0 <= X <= 98 :
-        if 0 <= Y <= 98 :
-            if game.plateau[0][0] == '.' :
-                cercle(10,10, couleur)
-                game.plateau[0][0] = game.player % 2
-        elif 100 <= Y <= 198 :
-            if game.plateau[1][0] == '.' :
-                cercle(10,110, couleur)
-                game.plateau[1][0] = game.player % 2
-        elif 200 <= Y <= 298 :
-            if game.plateau[2][0] == '.' :
-                cercle(10,210, couleur)
-                game.plateau[2][0] = game.player % 2
-    elif 100 <= X <= 198 :
-        if 0 <= Y <= 98 :
-            if game.plateau[0][1] == '.' :
-                cercle(110,10, couleur)
-                game.plateau[0][1] = game.player % 2
-        elif 100 <= Y <= 198 :
-            if game.plateau[1][1] == '.' :
-                cercle(110,110, couleur)
-                game.plateau[1][1] = game.player % 2
-        elif 200 <= Y <= 298 :
-            if game.plateau[2][1] == '.' :
-                cercle(110,210, couleur)
-                game.plateau[2][1] = game.player % 2
-    elif 200 <= X <= 298 :
-        if 0 <= Y <= 98 :
-            if game.plateau[0][2] == '.' :
-                cercle(210,10, couleur)
-                game.plateau[0][2] = game.player % 2
-        elif 100 <= Y <= 198 :
-            if game.plateau[1][2] == '.' :
-                cercle(210,110, couleur)
-                game.plateau[1][2] = game.player % 2
-        elif 200 <= Y <= 298 :
-            if game.plateau[2][2] == '.' :
-                cercle(210,210, couleur)
-                game.plateau[2][2] = game.player % 2
+def transforme(x): 
+    if 0 <= x < 100:
+        x = 0
+    elif 100 <= x < 200:
+        x = 1
+    elif 200 <= x < 300:
+        x = 2
+    return x
 
+def affiche_cercle(X,Y,couleur):
+    X = transforme(X)
+    Y = transforme(Y)
+    if game.plateau[Y][X] == '.' :
+        cercle(100*X+10,100*Y+10, couleur)
+        game.plateau[Y][X] = game.player % 2
 
 ###########
 game = Jeu()
