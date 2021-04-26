@@ -75,6 +75,8 @@ def affiche_cercle(X,Y,couleur):
     if game.plateau[Y][X] == '.' :
         cercle(100*X+10,100*Y+10, couleur)
         game.plateau[Y][X] = game.player % 2
+    else :
+        game.player -= 1
 
 ###########
 game = Jeu()
