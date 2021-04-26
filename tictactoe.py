@@ -53,13 +53,15 @@ def clicjeu_h_vs_pc(event):
     Y = event.y // 100
     if not(game.victoire(game.player % 2)) and game.player < 9:
         couleur = color()
+        while game.plateau[Y][X] != '.' :
+            clicjeu_h_vs_pc
         affiche_cercle(X,Y,couleur)
         if game.victoire(game.player % 2):
             victoire = 'Joueur humain gagne !'
             label = tk.Label(fen, text = victoire)
             label.grid(row = 0, column = 0)
         game.player += 1
-        if game.player < 9 :
+        if game.player < 9 and game.victoire((game.player - 1) % 2) == False:
             X = rd.choice(choix)  #X et Y au hasard
             Y = rd.choice(choix)
             couleur = color()
@@ -72,9 +74,10 @@ def clicjeu_h_vs_pc(event):
                 label = tk.Label(fen, text = victoire)
                 label.grid(row = 0, column = 0)
             game.player += 1
-    if game.player >= 9 and not(game.victoire(game.player % 2) or game.victoire((game.player+1) % 2)):
+    if game.player >= 9 and not(game.victoire(game.player % 2) or game.victoire((game.player + 1) % 2)):
         label = tk.Label(fen, text = 'Égalité')
         label.grid(row = 0, column = 0)
+
 
 def cercle(x,y,color):
     dessin.create_oval(x,y,x+80,y+80,width = 2, outline = color)
