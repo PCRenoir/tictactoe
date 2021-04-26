@@ -5,31 +5,20 @@ class Jeu:
         self.plateau = [['.' for i in range(3)] for j in range(3)]
         self.player = 0
 
-    def check_ligne(self,player):
-        for i in self.plateau:
-            if i[0] == i[1] == i[2] == player :
-                return True
-        return False
-
-    def check_colonne(self,player):
-        for i in range(3):
-            if self.plateau[0][i] == self.plateau[1][i] == self.plateau[2][i] == player:
-                return True
-        return False
-
-    def check_diagonale(self,player):
-        if self.plateau[0][0] == self.plateau[1][1] == self.plateau[2][2] == player:
+    def victoire(self, player):
+        #test_victoire = liste formée des 3 lignes, 3 colonnes et 2 diagonales du plateau
+        test_victoire = [[self.plateau[0][0], self.plateau[0][1], self.plateau[0][2]],
+        [self.plateau[1][0], self.plateau[1][1], self.plateau[1][2]], 
+        [self.plateau[2][0], self.plateau[2][1], self.plateau[2][2]], 
+        [self.plateau[0][0], self.plateau[1][0], self.plateau[2][0]], 
+        [self.plateau[0][1], self.plateau[1][1], self.plateau[2][1]], 
+        [self.plateau[0][2], self.plateau[1][2], self.plateau[2][2]], 
+        [self.plateau[0][0], self.plateau[1][1], self.plateau[2][2]], 
+        [self.plateau[2][0], self.plateau[1][1], self.plateau[0][2]]] 
+        if [player, player, player] in test_victoire:
             return True
-        if self.plateau[0][2] == self.plateau[1][1] == self.plateau[2][0] == player:
-            return True
-        return False
-
-    def victoire(self,player):
-        if self.check_colonne(player) or self.check_ligne(player) or self.check_diagonale(player):
-            return True
-        return False
-        
-    def victory(self, player):
+        else:
+            return False
 
 
 def affiche_grille():
