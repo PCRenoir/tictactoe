@@ -22,7 +22,7 @@ def affiche_grille():
 
 def clicjeu_h_vs_h(event):
     if game.player % 2 == 0 :
-        couleur = 'red'  #j0 = red ->n° pair
+        couleur = 'red'  #j0 = red -> n° pair
     else:
         couleur = 'blue'  #j1 = blue -> n° impair
     # position du pointeur de la souris
@@ -59,6 +59,7 @@ def clicjeu_h_vs_pc(event):
             label = tk.Label(fen, text = 'Joueur humain gagne !')
             label.grid(row = 0, column = 0)
         game.player += 1
+        a= 0
         if game.player < 9 and game.victoire((game.player-1) % 2) == False:
             X = rd.choice(choix)  #X et Y au hasard
             Y = rd.choice(choix)
