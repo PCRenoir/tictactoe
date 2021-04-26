@@ -29,13 +29,11 @@ class Jeu:
             return True
         return False
 
-
 def affiche_grille():
     dessin.create_line(100, 0, 100, 300, fill= 'black', width = 2)
     dessin.create_line(200, 0, 200, 300, fill= 'black', width = 2)
     dessin.create_line(0, 100, 300, 100, fill= 'black', width = 2)
     dessin.create_line(0, 200, 300, 200, fill= 'black', width = 2)
-
 
 def clicjeu(event):
     if game.player % 2 == 0 :   #game.player % 2 -> donne le n° du joueur en fct du nbre de coups
@@ -60,12 +58,9 @@ def clicjeu(event):
 def cercle(x,y,color):
     dessin.create_oval(x,y,x+80,y+80,width = 2, outline = color)
 
-def transforme(x): 
-    return x // 100
-
 def affiche_cercle(X,Y,couleur):
-    X = transforme(X)
-    Y = transforme(Y)
+    X = X // 100
+    Y = Y // 100
     if game.plateau[Y][X] == '.' :
         cercle(100*X + 10, 100*Y + 10, couleur)
         game.plateau[Y][X] = game.player % 2
@@ -76,7 +71,7 @@ def affiche_cercle(X,Y,couleur):
 game = Jeu()
 fen = tk.Tk()
 fen.title('TicTacToe')
-dessin = tk.Canvas(fen, width = 300 , height = 300 , bg = 'white',borderwidth=0, highlightthickness=0)
+dessin = tk.Canvas(fen, width = 300 , height = 300 , bg = 'white', borderwidth = 0, highlightthickness = 0)
 dessin.grid(row = 0, column = 0)
 dessin.bind('<Button-1>', clicjeu)
 affiche_grille()
