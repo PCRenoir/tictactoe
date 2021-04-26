@@ -30,7 +30,6 @@ class Jeu:
         return False
 
 
-
 def affiche_grille():
     dessin.create_line(100, 0, 100, 320, fill= 'black', width = 2)
     dessin.create_line(200, 0, 200, 320, fill= 'black', width = 2)
