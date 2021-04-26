@@ -28,6 +28,9 @@ class Jeu:
         if self.check_colonne(player) or self.check_ligne(player) or self.check_diagonale(player):
             return True
         return False
+        
+    def victory(self, player):
+
 
 def affiche_grille():
     dessin.create_line(100, 0, 100, 300, fill= 'black', width = 2)
@@ -56,7 +59,7 @@ def clicjeu(event):
         label.grid(row = 0, column = 0)
 
 def cercle(x,y,color):
-    dessin.create_oval(x,y,x+80,y+80,width = 2, outline = color)
+    dessin.create_oval(x, y, x + 80, y + 80, width = 2, outline = color)
 
 def affiche_cercle(X,Y,couleur):
     X = X // 100
