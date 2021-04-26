@@ -49,12 +49,12 @@ def clicjeu(event):
 def cercle(x,y,color):
     dessin.create_oval(x, y, x + 80, y + 80, width = 2, outline = color)
 
-def affiche_cercle(X,Y,couleur):
-    X = X // 100
-    Y = Y // 100
-    if game.plateau[Y][X] == '.' :
-        cercle(100*X + 10, 100*Y + 10, couleur)
-        game.plateau[Y][X] = game.player % 2
+def affiche_cercle(x,y,couleur):
+    x = x // 100
+    y = y // 100
+    if game.plateau[y][x] == '.' :
+        cercle(100 * x + 10, 100 * y + 10, couleur)
+        game.plateau[y][x] = game.player % 2
     else :
         game.player -= 1
 
