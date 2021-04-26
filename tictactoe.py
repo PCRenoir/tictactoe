@@ -38,8 +38,8 @@ def affiche_grille():
 
 
 def clicjeu(event):
-    if game.player % 2 == 0 :
-        couleur = 'red'  #j0 = red
+    if game.player % 2 == 0 :   #game.player % 2 -> donne le n° du joueur en fct du nbre de coups
+        couleur = 'red'   #j0 = red
     else:
         couleur = 'blue'  #j1 = blue
     # position du pointeur de la souris
@@ -48,7 +48,7 @@ def clicjeu(event):
     if not(game.victoire(game.player % 2)) and game.player < 9:
         affiche_cercle(X,Y,couleur)
         if game.victoire(game.player % 2):
-            victoire = 'Joueur ' + str((game.player % 2) + 1) + ' gagne !'
+            victoire = 'Joueur ' + str((game.player % 2) + 1) + ' gagne !'  #texte en cas de victoire
             label = tk.Label(fen, text = victoire)
             label.grid(row = 0, column = 0)
         else :
@@ -61,24 +61,18 @@ def cercle(x,y,color):
     dessin.create_oval(x,y,x+80,y+80,width = 2, outline = color)
 
 def transforme(x): 
-    if 0 <= x < 100:
-        x = 0
-    elif 100 <= x < 200:
-        x = 1
-    elif 200 <= x < 300:
-        x = 2
-    return x
+    return x // 100
 
 def affiche_cercle(X,Y,couleur):
     X = transforme(X)
     Y = transforme(Y)
     if game.plateau[Y][X] == '.' :
-        cercle(100*X+10,100*Y+10, couleur)
+        cercle(100*X + 10, 100*Y + 10, couleur)
         game.plateau[Y][X] = game.player % 2
     else :
         game.player -= 1
 
-###########
+################################# Programme Principal
 game = Jeu()
 fen = tk.Tk()
 fen.title('TicTacToe')
@@ -86,5 +80,4 @@ dessin = tk.Canvas(fen, width = 300 , height = 300 , bg = 'white',borderwidth=0,
 dessin.grid(row = 0, column = 0)
 dessin.bind('<Button-1>', clicjeu)
 affiche_grille()
-
 fen.mainloop()
