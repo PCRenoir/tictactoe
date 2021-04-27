@@ -29,7 +29,7 @@ def clicjeu_h_vs_h(event):
     X = event.x // 100
     Y = event.y // 100
     if not(game.victoire(game.player % 2)) and game.player < 9:
-        affiche_cercle(X,Y,couleur)
+        affiche_pion(X,Y,couleur)
         if game.victoire(game.player % 2):
             victoire = 'Joueur '+str((game.player % 2) + 1)+' gagne !'
             label = tk.Label(fen, text = victoire)
@@ -54,7 +54,7 @@ def clicjeu_h_vs_pc(event):
         couleur = color()
         if game.plateau[Y][X] != '.' :
             return None
-        affiche_cercle(X,Y,couleur)
+        affiche_pion(X,Y,couleur)
         if game.victoire(game.player % 2):
             victoire = 'Joueur humain gagne !'
             label = tk.Label(fen, text = victoire)
@@ -68,25 +68,51 @@ def clicjeu_h_vs_pc(event):
 def computer():
     choix = [0,1,2]
     if game.player < 9 and game.victoire((game.player-1) % 2) == False:
-        X = rd.choice(choix)  #X et Y au hasard
-        Y = rd.choice(choix)
+        X, Y = not_stupid()
         couleur = color()
         while game.plateau[Y][X] != '.':
             X = rd.choice(choix)
             Y = rd.choice(choix)
-        affiche_cercle(X,Y,couleur)
+        affiche_pion(X,Y,couleur)
         if game.victoire(game.player % 2):
             victoire = 'Ordinateur gagne !'
             label = tk.Label(fen, text = victoire)
             label.grid(row = 0, column = 0)
         game.player += 1
 
+def not_stupid():
+    choix = [0,1,2]
+    for i in range(3):
+        for j in range(3):
+            if game.plateau[i][j] == '.':
+                game.plateau[i][j] = 1
+                if game.victoire(1):
+                    game.plateau[i][j] = '.'
+                    return j,i
+                else:
+                    game.plateau[i][j] = 0
+                    if game.victoire(0):
+                        game.plateau[i][j] = '.'
+                        return j,i
+                game.plateau[i][j] = '.'
+    j = rd.choice(choix)
+    i = rd.choice(choix)
+    return i,j
+
+
 def cercle(x,y,color):
     dessin.create_oval(x,y,x+80,y+80,width = 2, outline = color)
 
-def affiche_cercle(X,Y,couleur):
+def croix(x, y, color):
+    dessin.create_line(x, y, x+80,y+80,width = 2, fill = color)
+    dessin.create_line(x, y+80, x+80,y,width = 2, fill = color)
+
+def affiche_pion(X,Y,couleur):
     if game.plateau[Y][X] == '.' :
-        cercle(100*X+10,100*Y+10, couleur)
+        if game.player % 2 == 0:
+            cercle(100*X+10,100*Y+10, couleur)
+        else :
+            croix(100*X+10,100*Y+10, couleur)
         game.plateau[Y][X] = game.player % 2
     else :
         game.player -= 1
