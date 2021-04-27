@@ -56,8 +56,7 @@ def clicjeu_h_vs_pc(event):
             return None
         affiche_pion(X,Y,couleur)
         if game.victoire(game.player % 2):
-            victoire = 'Joueur humain gagne !'
-            label = tk.Label(fen, text = victoire)
+            label = tk.Label(fen, text = 'Joueur humain gagne !')
             label.grid(row = 0, column = 0)
         game.player += 1
     fen.after(500, computer)    #attend 0.5s avant de faire jouer l'ordi
@@ -67,20 +66,19 @@ def clicjeu_h_vs_pc(event):
 
 def computer():
     choix = [0,1,2]
-    if game.player < 9 and game.victoire((game.player-1) % 2) == False:
-        X, Y = not_stupid()
+    if game.player < 9 and game.victoire((game.player - 1) % 2) == False:
+        X, Y = pc_not_stupid()
         couleur = color()
         while game.plateau[Y][X] != '.':
             X = rd.choice(choix)
             Y = rd.choice(choix)
         affiche_pion(X,Y,couleur)
         if game.victoire(game.player % 2):
-            victoire = 'Ordinateur gagne !'
-            label = tk.Label(fen, text = victoire)
-            label.grid(row = 0, column = 0)
+            labelc = tk.Label(fen, text = 'Ordinateur gagne !')
+            labelc.grid(row = 0, column = 0)
         game.player += 1
 
-def not_stupid():
+def pc_not_stupid():
     choix = [0,1,2]
     for i in range(3):
         for j in range(3):
@@ -118,15 +116,22 @@ def affiche_pion(X,Y,couleur):
         game.player -= 1
 
 def jeupc():
+    dessin.delete('all')
+    game.plateau = [['.' for i in range(3)] for j in range(3)]
+    game.player = 0
     affiche_grille()
     label.destroy()
     dessin.bind('<Button-1>', clicjeu_h_vs_pc)
 
 def jeuhumain():
-    affiche_grille()
     label.destroy()
-    dessin.bind('<Button-1>', clicjeu_h_vs_h)
+    dessin.delete('all')
+    game.plateau = [['.' for i in range(3)] for j in range(3)]
+    game.player = 0
+    affiche_grille()
 
+    dessin.bind('<Button-1>', clicjeu_h_vs_h)
+    
 
 ###################### Programme principal ##############
 game = Jeu()
@@ -138,6 +143,7 @@ dessin.grid(row = 0, column = 0)
 
 label = tk.Label(fen, text = 'Choisir le mode de jeu dans le menu Jeu')
 label.grid(row = 0, column = 0)
+
 
 menubar = tk.Menu(fen)
 menu1 = tk.Menu(menubar, tearoff = 0)
